@@ -1,0 +1,192 @@
+openapi: 3.0.3
+info:
+  title: Управление роботом пылесосом
+  version: 0.0.1
+
+servers:
+  - url: https://localhost8080/api/v1
+
+    description: Dev server
+paths:
+  /robots:
+    get:
+      tags:
+        - robot
+      summary: Метод получения списка роботов
+      operationId: GetAllRobots
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Robots'
+        'default':
+          description: все остальное
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - robot
+      summary: Метод создания робота
+      operationId: createRobot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+      responses:
+        '200':
+          description: Успешный ответ создания робота
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Robots'
+        'default':
+          description: все остальное
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - robot
+      summary: Метод удаления робота
+      operationId: deleteRobot
+      responses:
+        '200':
+          description: Успешный ответ удаления робота
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Robots'
+        'default':
+          description: все остальное
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Error'
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Метод получения списка пользователей
+      operationId: GetAllUsers
+      responses:
+        '200':
+          description: Успешный ответ со списком пользователей
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Users'
+        'default':
+          description: все остальное
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Users
+      summary: Метод создания пользователя
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+      responses:
+        '200':
+          description: Успешный ответ создания пользователя
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Users'
+        'default':
+          description: все остальное
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Users
+      summary: Метод удаления пользователя
+      operationId: deleteUser
+      responses:
+        '200':
+          description: Успешный ответ удаления пользователя
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Users'
+        'default':
+          description: все остальное
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Error'
+      
+components:
+  schemas:
+    Robots:
+      type: object
+      required:
+        - id,
+        - model,
+        - version,
+        - status,
+        - resource,
+        - fabric_number,
+        - id_group
+      properties:
+        id:
+          type: integer
+          example: 1
+        model:
+            type: string
+            example: A1
+        version:
+          type: integer
+          example: 1
+        status:
+          type: string
+          example: worked
+    Users:
+      type: object
+      required:
+        - id
+        - name
+        - e-mail
+        - robot_id
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Bob
+        e-mail:
+          type: string
+          example: Big_Bob@googl.com
+        robot_id:
+          type: integer
+          example: 1
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          example: 1
+        message:
+          type: string
+          example: ошибка
+             
+             
